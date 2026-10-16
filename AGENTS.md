@@ -8,7 +8,10 @@ crates; see README.md for the table of standards and package names.
 
 - `crates/openbim-<x>/` — the implementation of standard `<x>` (crates.io)
 - `crates/<x>/` — short-name alias, a pure `pub use openbim_<x>::*;` pinned
-  with `=` (crates.io); `xrechnung` has none, its crates.io name is taken
+  with `=` (crates.io); its `npm/` (npm `<x>`, re-exports `@openbim/<x>`)
+  and `python/` (PyPI `<x>`, re-exports `openbim_<x>`) are the same alias on
+  the other registries, released by tags `<x>-npm-v…` and `<x>-py-v…`;
+  `xrechnung` has none, the name is taken everywhere
 - `crates/openbim-<x>-wasm/` — JavaScript binding, npm `@openbim/<x>`
   (`npm/package.json`, `tests/js/`); `publish = false` on crates.io
 - `crates/openbim-<x>-py/` — Python binding, PyPI `openbim-<x>`, imported as
@@ -18,8 +21,8 @@ crates; see README.md for the table of standards and package names.
 - `scripts/release-crate.py`, `.github/workflows/release.yml` — per-crate
   releases (`<crate>-v<version>` tags) to crates.io, npm and PyPI by trusted
   publishing; see CONTRIBUTING.md
-- `scripts/build-npm-package.sh`, `scripts/check-python.sh` — build and test
-  one binding
+- `scripts/build-npm-package.sh`, `scripts/build-npm-alias.sh`,
+  `scripts/check-python.sh` — build and test one binding and its alias
 - `references/` — ignored; local schema, sample and specification material
 
 ## Boundaries

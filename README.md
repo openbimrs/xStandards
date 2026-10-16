@@ -8,7 +8,7 @@ as its own Rust crate with JavaScript (npm) and Python (PyPI) bindings.
 wired for release; reading, writing and validating documents is not
 implemented yet.
 
-| Standard | Operator | Rust | Alias | npm | PyPI |
+| Standard | Operator | Rust | Alias ² | npm | PyPI |
 | --- | --- | --- | --- | --- | --- |
 | [XPlanung](https://xleitstelle.de/xplanung) — spatial and land-use plans (XPlanGML) | XLeitstelle Planen und Bauen | `openbim-xplanung` | `xplanung` | `@openbim/xplanung` | `openbim-xplanung` |
 | [XBau](https://xleitstelle.de/xbau) — building-permit messages, incl. XBau core module | XLeitstelle Planen und Bauen | `openbim-xbau` | `xbau` | `@openbim/xbau` | `openbim-xbau` |
@@ -18,11 +18,15 @@ implemented yet.
 | [XBestellung](https://xeinkauf.de/xbestellung/) — electronic purchase orders | KoSIT | `openbim-xbestellung` | `xbestellung` | `@openbim/xbestellung` | `openbim-xbestellung` |
 | XVergabe — e-procurement platform interface | IT-Planungsrat | `openbim-xvergabe` | `xvergabe` | `@openbim/xvergabe` | `openbim-xvergabe` |
 
-¹ The crates.io name `xrechnung` belongs to another project.
+² The alias name is the same on crates.io, npm and PyPI.
 
-Short-name aliases (`xbau`, `xplanung`, …) are pure re-exports of the
-canonical `openbim-*` crate, pinned to its exact version, so both names share
-one API and one type identity.
+¹ The name `xrechnung` belongs to other projects on crates.io, npm and PyPI.
+
+Short-name aliases (`xbau`, `xplanung`, …) exist on all three registries:
+the crate `xbau` re-exports `openbim-xbau`, the npm package `xbau`
+re-exports `@openbim/xbau`, and the PyPI project `xbau` re-exports
+`openbim-xbau`. Each is pinned to the exact canonical version, so both names
+share one API and one type identity.
 
 Road and traffic data (OKSTRA) lives in
 [openbimrs/okstra](https://github.com/openbimrs/okstra).

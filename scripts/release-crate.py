@@ -23,6 +23,8 @@ Usage:
     scripts/release-crate.py <crate> --publish         # tag; CI publishes
     scripts/release-crate.py <crate> --publish --local # publish from here
     scripts/release-crate.py <tag> --plan              # registries for a tag
+    scripts/release-crate.py xbau-npm --publish        # npm alias `xbau`
+    scripts/release-crate.py xbau-py --publish         # PyPI alias `xbau`
 """
 
 from __future__ import annotations
@@ -303,6 +305,24 @@ def extra_registry(crate: str) -> tuple[str, str, str] | None:
     return None
 
 
+def alias_unit(name: str) -> tuple[str, str, str] | None:
+    """(registry, manifest path, package name) for a short-name alias on npm
+    or PyPI, else None.
+
+    These are not Cargo packages: `<x>-npm` is the npm package `<x>` in
+    crates/<x>/npm, `<x>-py` the PyPI project `<x>` in crates/<x>/python.
+    Each pins its binding exactly and is released by its own tag.
+    """
+    for suffix, registry, relative in (("-npm", "npm", "npm/package.json"),
+                                       ("-py", "pypi", "python/pyproject.toml")):
+        if name.endswith(suffix) and not name.startswith("openbim-"):
+            stem = name[:-len(suffix)]
+            manifest = f"crates/{stem}/{relative}"
+            if (ROOT / manifest).is_file():
+                return registry, manifest, stem
+    return None
+
+
 TAG = re.compile(r"^(?P<crate>[a-z0-9][a-z0-9-]*)-v(?P<version>\d+\.\d+\.\d+(?:-[0-9A-Za-z.]+)?)$")
 
 
@@ -359,6 +379,21 @@ def plan(tag: str) -> int:
     crate, version = match["crate"], match["version"]
     if refuse_tooling(crate):
         return 1
+    alias = alias_unit(crate)
+    if alias is not None:
+        registry, manifest, package_name = alias
+        declared = manifest_version(ROOT / manifest)
+        if declared != version:
+            print(f"{tag}: {manifest} says {declared}", file=sys.stderr)
+            return 1
+        print(f"crate={crate}")
+        print(f"version={version}")
+        print(f"dir={Path(manifest).parent.as_posix()}")
+        print(f"package={package_name}")
+        print("kind=alias")
+        for key in ("crates_io", "npm", "pypi"):
+            print(f"{key}={'true' if key == registry else 'false'}")
+        return 0
     package = next((p for p in metadata()["packages"] if p["name"] == crate), None)
     if package is None:
         print(f"{tag}: {crate} is not a workspace member", file=sys.stderr)
@@ -385,6 +420,7 @@ def plan(tag: str) -> int:
     # The name on the registry the tag targets besides crates.io (npm scope
     # or PyPI project); the crate's own name otherwise.
     print(f"package={package_name}")
+    print(f"kind={'binding' if extra is not None else 'crate'}")
     for key, value in targets.items():
         print(f"{key}={'true' if value else 'false'}")
     return 0
@@ -417,7 +453,12 @@ def publish(crate: str, local: bool) -> int:
     from a detached worktree at the tag so the VCS SHA embedded in the
     .crate is deterministic and the working tree stays free for other work.
     """
-    version = current_version(crate)
+    alias = alias_unit(crate)
+    if alias is not None and local:
+        print(f"{crate} is published by CI only; drop --local", file=sys.stderr)
+        return 1
+    version = (manifest_version(ROOT / alias[1]) if alias is not None
+               else current_version(crate))
     if local and version in published_versions(crate):
         print(f"{crate} {version} is already live; nothing to do")
         return 0

@@ -32,6 +32,8 @@ Every crate is versioned and released on its own by tag
 | `openbim-<x>`, `<x>` | crates.io | `crates.io` |
 | `openbim-<x>-wasm` | npm `@openbim/<x>` | `npmjs.com` |
 | `openbim-<x>-py` | PyPI `openbim-<x>` | `pypi.org` |
+| `<x>-npm` (alias, `crates/<x>/npm`) | npm `<x>` | `npmjs.com` |
+| `<x>-py` (alias, `crates/<x>/python`) | PyPI `<x>` | `pypi.org` |
 
 ```bash
 scripts/release-crate.py openbim-xbau --set 0.1.1           # dry run: blast radius
@@ -43,6 +45,9 @@ scripts/release-crate.py openbim-xbau --publish             # tag and push; CI p
 An alias pins its canonical crate exactly, so every release of `openbim-<x>`
 is followed by a release of `<x>`; `--apply` rewrites the pin and says so.
 A binding's npm or PyPI manifest is bumped together with its Cargo.toml.
+The npm and PyPI aliases carry their binding's version and pin it exactly
+(the gate checks both); bump them by hand with the binding and release them
+after it: `scripts/release-crate.py xbau-npm --publish`, `… xbau-py --publish`.
 
 The workflow refuses a tag that is not on `main` or disagrees with the
 manifests, waits for CI to pass on the tagged commit, and then publishes;
