@@ -206,6 +206,23 @@ MIT
     alias_bindings(s)
 
 
+def npm_readme(s: argparse.Namespace) -> str:
+    return f"""# {s.slug}
+
+Short-name package for {s.name}: a **pure re-export** of
+[`@openbim/{s.slug}`](https://www.npmjs.com/package/@openbim/{s.slug}),
+pinned to its exact version, so both names expose one API.
+
+```js
+const {{ standardName }} = require("{s.slug}");
+```
+
+## License
+
+MIT
+"""
+
+
 def alias_bindings(s: argparse.Namespace) -> None:
     """The short name on npm and PyPI: pure re-exports of the bindings.
 
@@ -234,28 +251,28 @@ def alias_bindings(s: argparse.Namespace) -> None:
         "engines": {"node": ">=18"},
         "keywords": [s.slug, "egovernment", "openbim", "bim", *s.keyword],
     }
+    if not getattr(s, "no_npm_alias", False):
+        write_npm_alias(d, s, package)
+    write_python_alias(d, s, canonical, module)
+
+
+def write_npm_alias(d: Path, s: argparse.Namespace, package: dict) -> None:
     write(d / "npm" / "package.json", json.dumps(package, indent=2, ensure_ascii=False) + "\n")
     write(d / "npm" / "index.js", f"""// Alias: defines nothing of its own (see README.md).
 module.exports = require("@openbim/{s.slug}");
 """)
     write(d / "npm" / "index.d.ts", f'export * from "@openbim/{s.slug}";\n')
-    readme = f"""# {s.slug}
-
-Short-name package for {s.name}: a **pure re-export** of
-[`@openbim/{s.slug}`](https://www.npmjs.com/package/@openbim/{s.slug}),
-pinned to its exact version, so both names expose one API.
-
-```js
-const {{ standardName }} = require("{s.slug}");
-```
-
-## License
-
-MIT
-"""
+    readme = npm_readme(s)
     write(d / "npm" / "README.md", readme)
     write(d / "npm" / "LICENSE", (ROOT / "LICENSE").read_text(encoding="utf-8"))
 
+
+def write_python_alias(d: Path, s: argparse.Namespace, canonical: str, module: str) -> None:
+    readme = npm_readme(s).replace(
+        f"[`@openbim/{s.slug}`](https://www.npmjs.com/package/@openbim/{s.slug})",
+        f"[`openbim-{s.slug}`](https://pypi.org/project/openbim-{s.slug}/)").replace(
+        f'```js\nconst {{ standardName }} = require("{s.slug}");\n```',
+        f"```python\nimport {s.slug}\nprint({s.slug}.STANDARD_NAME)\n```")
     write(d / "python" / "pyproject.toml", f"""[build-system]
 requires = ["flit_core>=3.9,<4"]
 build-backend = "flit_core.buildapi"
@@ -280,11 +297,7 @@ Repository = "{REPO}"
 from {module} import *  # noqa: F401,F403
 from {module} import __version__  # noqa: F401
 ''')
-    write(d / "python" / "README.md", readme.replace(
-        f"[`@openbim/{s.slug}`](https://www.npmjs.com/package/@openbim/{s.slug})",
-        f"[`openbim-{s.slug}`](https://pypi.org/project/openbim-{s.slug}/)").replace(
-        f'```js\nconst {{ standardName }} = require("{s.slug}");\n```',
-        f"```python\nimport {s.slug}\nprint({s.slug}.STANDARD_NAME)\n```"))
+    write(d / "python" / "README.md", readme)
     write(d / "python" / "LICENSE", (ROOT / "LICENSE").read_text(encoding="utf-8"))
 
 
@@ -548,6 +561,8 @@ def main() -> int:
     parser.add_argument("--keyword", action="append", default=[])
     parser.add_argument("--no-alias", action="store_true",
         help="skip the short-name alias (its crates.io name is taken)")
+    parser.add_argument("--no-npm-alias", action="store_true",
+        help="skip only the npm short-name alias (npm refuses the name)")
     s = parser.parse_args()
     if not re.fullmatch(r"x[a-z0-9-]+", s.slug):
         print(f"slug must be lowercase and start with x: {s.slug}", file=sys.stderr)
