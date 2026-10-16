@@ -11,7 +11,8 @@ crates; see README.md for the table of standards and package names.
   with `=` (crates.io); its `npm/` (npm `<x>`, re-exports `@openbim/<x>`)
   and `python/` (PyPI `<x>`, re-exports `openbim_<x>`) are the same alias on
   the other registries, released by tags `<x>-npm-v…` and `<x>-py-v…`;
-  `xrechnung` has none, the name is taken everywhere
+  `xrechnung` has none, the name is taken everywhere; `xbau` has no `npm/`,
+  npm refuses the name as too similar to an existing package
 - `crates/openbim-<x>-wasm/` — JavaScript binding, npm `@openbim/<x>`
   (`npm/package.json`, `tests/js/`); `publish = false` on crates.io
 - `crates/openbim-<x>-py/` — Python binding, PyPI `openbim-<x>`, imported as

@@ -19,7 +19,8 @@ scripts/new-standard.py xfoo --name XFoo --operator "…" \
     --homepage https://… --summary "One sentence without final period"
 ```
 
-Pass `--no-alias` when the short name is taken on crates.io. Add the
+Pass `--no-alias` when the short name is taken on crates.io, and
+`--no-npm-alias` when only npm refuses it (as for `xbau`). Add the
 standard to the tables in README.md and AGENTS.md, then run the gate.
 
 ## Releasing a crate

@@ -11,7 +11,7 @@ implemented yet.
 | Standard | Operator | Rust | Alias ² | npm | PyPI |
 | --- | --- | --- | --- | --- | --- |
 | [XPlanung](https://xleitstelle.de/xplanung) — spatial and land-use plans (XPlanGML) | XLeitstelle Planen und Bauen | `openbim-xplanung` | `xplanung` | `@openbim/xplanung` | `openbim-xplanung` |
-| [XBau](https://xleitstelle.de/xbau) — building-permit messages, incl. XBau core module | XLeitstelle Planen und Bauen | `openbim-xbau` | `xbau` | `@openbim/xbau` | `openbim-xbau` |
+| [XBau](https://xleitstelle.de/xbau) — building-permit messages, incl. XBau core module | XLeitstelle Planen und Bauen | `openbim-xbau` | `xbau` ³ | `@openbim/xbau` | `openbim-xbau` |
 | [XBreitband](https://xleitstelle.de/xtrassexbreitband) — permits for broadband and civil works (XBau-Tiefbau) | XLeitstelle Planen und Bauen | `openbim-xbreitband` | `xbreitband` | `@openbim/xbreitband` | `openbim-xbreitband` |
 | [XTrasse](https://xleitstelle.de/xtrassexbreitband) — planned line routes, built on XPlanung | XLeitstelle Planen und Bauen | `openbim-xtrasse` | `xtrasse` | `@openbim/xtrasse` | `openbim-xtrasse` |
 | [XRechnung](https://xeinkauf.de/xrechnung/) — CIUS of the EN 16931 e-invoice | KoSIT | `openbim-xrechnung` | — ¹ | `@openbim/xrechnung` | `openbim-xrechnung` |
@@ -19,6 +19,9 @@ implemented yet.
 | XVergabe — e-procurement platform interface | IT-Planungsrat | `openbim-xvergabe` | `xvergabe` | `@openbim/xvergabe` | `openbim-xvergabe` |
 
 ² The alias name is the same on crates.io, npm and PyPI.
+
+³ npm refuses the unscoped name `xbau` as too similar to an existing
+package, so XBau's short name exists on crates.io and PyPI only.
 
 ¹ The name `xrechnung` belongs to other projects on crates.io, npm and PyPI.
 
