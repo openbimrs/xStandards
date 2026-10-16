@@ -1,0 +1,24 @@
+[package]
+name = "openbim-xtrasse-wasm"
+version = "0.1.0"
+description = "WebAssembly bindings for openbim-xtrasse (XTrasse), published to npm as @openbim/xtrasse."
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords = ["openbim", "xtrasse", "egovernment", "wasm"]
+categories = ["wasm"]
+# npm-only: distributed as `@openbim/xtrasse`.
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+openbim-xtrasse = { path = "../openbim-xtrasse", version = "0.1.0" }
+wasm-bindgen = "=0.2.128"
+
+[lints]
+workspace = true

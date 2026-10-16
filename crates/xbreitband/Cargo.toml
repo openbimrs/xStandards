@@ -1,0 +1,23 @@
+[package]
+name = "xbreitband"
+version = "0.1.0"
+description = "XBreitband alias: re-exports openbim-xbreitband."
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation = "https://docs.rs/openbim-xbreitband"
+readme = "README.md"
+keywords = ["openbim", "xbreitband", "egovernment"]
+categories = ["data-structures"]
+include = ["src/**", "Cargo.toml", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[dependencies]
+# Exact pin prevents the alias and canonical package from exposing different
+# versions of the same API in one dependency graph.
+openbim-xbreitband = { path = "../openbim-xbreitband", version = "=0.1.0" }
+
+[lints]
+workspace = true

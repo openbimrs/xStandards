@@ -1,0 +1,11 @@
+target/
+.DS_Store
+*.profraw
+__pycache__/
+# Built npm packages (scripts/build-npm-package.sh) and wheels.
+crates/*/pkg/
+dist/
+# Locally obtained standard material (XSD, GML samples, specifications as
+# PDF, code lists). Redistribution rights are established per standard, not
+# assumed; never commit, package, or publish anything from this directory.
+references/

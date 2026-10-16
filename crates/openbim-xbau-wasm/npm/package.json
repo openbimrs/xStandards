@@ -1,0 +1,57 @@
+{
+  "name": "@openbim/xbau",
+  "description": "XÖV message standard for building-permit procedures, including the XBau core module, in JavaScript (WebAssembly build of openbim-xbau).",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openbimrs/xStandards.git",
+    "directory": "crates/openbim-xbau-wasm"
+  },
+  "type": "commonjs",
+  "main": "openbim_xbau_wasm.js",
+  "types": "openbim_xbau_wasm.d.ts",
+  "exports": {
+    ".": {
+      "node": {
+        "types": "./openbim_xbau_wasm.d.ts",
+        "default": "./openbim_xbau_wasm.js"
+      },
+      "default": {
+        "types": "./bundler/openbim_xbau_wasm.d.ts",
+        "default": "./bundler/openbim_xbau_wasm.js"
+      }
+    },
+    "./bundler": {
+      "types": "./bundler/openbim_xbau_wasm.d.ts",
+      "default": "./bundler/openbim_xbau_wasm.js"
+    },
+    "./web": {
+      "types": "./web/openbim_xbau_wasm.d.ts",
+      "default": "./web/openbim_xbau_wasm.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "openbim_xbau_wasm.js",
+    "openbim_xbau_wasm.d.ts",
+    "openbim_xbau_wasm_bg.wasm",
+    "openbim_xbau_wasm_bg.wasm.d.ts",
+    "bundler/",
+    "web/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "xbau",
+    "egovernment",
+    "openbim",
+    "bim",
+    "wasm",
+    "construction",
+    "permit"
+  ]
+}

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["maturin>=1.13,<2"]
+build-backend = "maturin"
+
+[project]
+name = "openbim-xbreitband"
+version = "0.1.0"
+description = "XBau specialist module for permits in broadband rollout and civil works (XBau-Tiefbau) -- Python bindings for the openbim-xbreitband Rust crate."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+keywords = ["xbreitband", "egovernment", "openbim", "bim", "broadband", "permit"]
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "License :: OSI Approved :: MIT License",
+]
+
+[project.urls]
+Repository = "https://github.com/openbimrs/xStandards"
+
+[tool.maturin]
+module-name = "openbim_xbreitband"
+# maturin moves pyproject.toml to the sdist root but leaves LICENSE in the
+# crate directory, while PKG-INFO names it at the root; PyPI rejects such
+# an sdist.
+include = [{ path = "LICENSE", format = "sdist" }]

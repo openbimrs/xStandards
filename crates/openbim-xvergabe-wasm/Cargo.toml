@@ -1,0 +1,24 @@
+[package]
+name = "openbim-xvergabe-wasm"
+version = "0.1.0"
+description = "WebAssembly bindings for openbim-xvergabe (XVergabe), published to npm as @openbim/xvergabe."
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords = ["openbim", "xvergabe", "egovernment", "wasm"]
+categories = ["wasm"]
+# npm-only: distributed as `@openbim/xvergabe`.
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+openbim-xvergabe = { path = "../openbim-xvergabe", version = "0.1.0" }
+wasm-bindgen = "=0.2.128"
+
+[lints]
+workspace = true

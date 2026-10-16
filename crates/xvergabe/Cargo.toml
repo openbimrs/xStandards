@@ -1,0 +1,23 @@
+[package]
+name = "xvergabe"
+version = "0.1.0"
+description = "XVergabe alias: re-exports openbim-xvergabe."
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation = "https://docs.rs/openbim-xvergabe"
+readme = "README.md"
+keywords = ["openbim", "xvergabe", "egovernment"]
+categories = ["data-structures"]
+include = ["src/**", "Cargo.toml", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[dependencies]
+# Exact pin prevents the alias and canonical package from exposing different
+# versions of the same API in one dependency graph.
+openbim-xvergabe = { path = "../openbim-xvergabe", version = "=0.1.0" }
+
+[lints]
+workspace = true

@@ -1,0 +1,57 @@
+{
+  "name": "@openbim/xplanung",
+  "description": "Exchange standard for spatial and land-use plans (XPlanGML), in JavaScript (WebAssembly build of openbim-xplanung).",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openbimrs/xStandards.git",
+    "directory": "crates/openbim-xplanung-wasm"
+  },
+  "type": "commonjs",
+  "main": "openbim_xplanung_wasm.js",
+  "types": "openbim_xplanung_wasm.d.ts",
+  "exports": {
+    ".": {
+      "node": {
+        "types": "./openbim_xplanung_wasm.d.ts",
+        "default": "./openbim_xplanung_wasm.js"
+      },
+      "default": {
+        "types": "./bundler/openbim_xplanung_wasm.d.ts",
+        "default": "./bundler/openbim_xplanung_wasm.js"
+      }
+    },
+    "./bundler": {
+      "types": "./bundler/openbim_xplanung_wasm.d.ts",
+      "default": "./bundler/openbim_xplanung_wasm.js"
+    },
+    "./web": {
+      "types": "./web/openbim_xplanung_wasm.d.ts",
+      "default": "./web/openbim_xplanung_wasm.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "openbim_xplanung_wasm.js",
+    "openbim_xplanung_wasm.d.ts",
+    "openbim_xplanung_wasm_bg.wasm",
+    "openbim_xplanung_wasm_bg.wasm.d.ts",
+    "bundler/",
+    "web/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "xplanung",
+    "egovernment",
+    "openbim",
+    "bim",
+    "wasm",
+    "planning",
+    "gml"
+  ]
+}

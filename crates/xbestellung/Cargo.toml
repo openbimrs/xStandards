@@ -1,0 +1,23 @@
+[package]
+name = "xbestellung"
+version = "0.1.0"
+description = "XBestellung alias: re-exports openbim-xbestellung."
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation = "https://docs.rs/openbim-xbestellung"
+readme = "README.md"
+keywords = ["openbim", "xbestellung", "egovernment"]
+categories = ["data-structures"]
+include = ["src/**", "Cargo.toml", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[dependencies]
+# Exact pin prevents the alias and canonical package from exposing different
+# versions of the same API in one dependency graph.
+openbim-xbestellung = { path = "../openbim-xbestellung", version = "=0.1.0" }
+
+[lints]
+workspace = true

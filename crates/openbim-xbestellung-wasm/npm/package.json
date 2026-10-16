@@ -1,0 +1,57 @@
+{
+  "name": "@openbim/xbestellung",
+  "description": "Standard for electronic purchase orders in public procurement, in JavaScript (WebAssembly build of openbim-xbestellung).",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openbimrs/xStandards.git",
+    "directory": "crates/openbim-xbestellung-wasm"
+  },
+  "type": "commonjs",
+  "main": "openbim_xbestellung_wasm.js",
+  "types": "openbim_xbestellung_wasm.d.ts",
+  "exports": {
+    ".": {
+      "node": {
+        "types": "./openbim_xbestellung_wasm.d.ts",
+        "default": "./openbim_xbestellung_wasm.js"
+      },
+      "default": {
+        "types": "./bundler/openbim_xbestellung_wasm.d.ts",
+        "default": "./bundler/openbim_xbestellung_wasm.js"
+      }
+    },
+    "./bundler": {
+      "types": "./bundler/openbim_xbestellung_wasm.d.ts",
+      "default": "./bundler/openbim_xbestellung_wasm.js"
+    },
+    "./web": {
+      "types": "./web/openbim_xbestellung_wasm.d.ts",
+      "default": "./web/openbim_xbestellung_wasm.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "openbim_xbestellung_wasm.js",
+    "openbim_xbestellung_wasm.d.ts",
+    "openbim_xbestellung_wasm_bg.wasm",
+    "openbim_xbestellung_wasm_bg.wasm.d.ts",
+    "bundler/",
+    "web/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "xbestellung",
+    "egovernment",
+    "openbim",
+    "bim",
+    "wasm",
+    "procurement",
+    "order"
+  ]
+}

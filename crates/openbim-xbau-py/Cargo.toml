@@ -1,0 +1,29 @@
+[package]
+name = "openbim-xbau-py"
+version = "0.1.0"
+description = "Python bindings for openbim-xbau (XBau), published to PyPI as openbim-xbau."
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords = ["openbim", "xbau", "egovernment", "python"]
+categories = ["api-bindings"]
+# Shipped as a wheel (maturin), not as a crate.
+publish = false
+
+[lib]
+# Python imports the extension as `openbim_xbau`; `rlib` lets the Rust tests link
+# the binding without an interpreter.
+name = "openbim_xbau_py"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+openbim-xbau = { path = "../openbim-xbau", version = "0.1.0" }
+# abi3-py39: one wheel for CPython 3.9+. maturin sets
+# PYO3_BUILD_EXTENSION_MODULE, so `cargo test --workspace` stays linkable.
+pyo3 = { version = "=0.29.2", features = ["abi3-py39"] }
+
+[lints]
+workspace = true

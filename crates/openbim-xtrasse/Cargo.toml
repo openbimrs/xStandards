@@ -1,0 +1,20 @@
+[package]
+name = "openbim-xtrasse"
+version = "0.1.0"
+description = "XTrasse for Rust: geodata standard for planned line routes, built on XPlanung"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation = "https://docs.rs/openbim-xtrasse"
+readme = "README.md"
+keywords = ["openbim", "xtrasse", "egovernment", "infrastructure", "gml"]
+categories = ["data-structures", "parser-implementations"]
+include = ["src/**", "Cargo.toml", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[dependencies]
+
+[lints]
+workspace = true

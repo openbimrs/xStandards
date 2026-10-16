@@ -1,0 +1,20 @@
+[package]
+name = "openbim-xbestellung"
+version = "0.1.0"
+description = "XBestellung for Rust: standard for electronic purchase orders in public procurement"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation = "https://docs.rs/openbim-xbestellung"
+readme = "README.md"
+keywords = ["openbim", "xbestellung", "egovernment", "procurement", "order"]
+categories = ["data-structures", "parser-implementations"]
+include = ["src/**", "Cargo.toml", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[dependencies]
+
+[lints]
+workspace = true

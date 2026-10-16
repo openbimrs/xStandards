@@ -1,0 +1,24 @@
+[package]
+name = "openbim-xbau-wasm"
+version = "0.1.0"
+description = "WebAssembly bindings for openbim-xbau (XBau), published to npm as @openbim/xbau."
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords = ["openbim", "xbau", "egovernment", "wasm"]
+categories = ["wasm"]
+# npm-only: distributed as `@openbim/xbau`.
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+openbim-xbau = { path = "../openbim-xbau", version = "0.1.0" }
+wasm-bindgen = "=0.2.128"
+
+[lints]
+workspace = true

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["maturin>=1.13,<2"]
+build-backend = "maturin"
+
+[project]
+name = "openbim-xbau"
+version = "0.1.0"
+description = "XÖV message standard for building-permit procedures, including the XBau core module -- Python bindings for the openbim-xbau Rust crate."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+keywords = ["xbau", "egovernment", "openbim", "bim", "construction", "permit"]
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "License :: OSI Approved :: MIT License",
+]
+
+[project.urls]
+Repository = "https://github.com/openbimrs/xStandards"
+
+[tool.maturin]
+module-name = "openbim_xbau"
+# maturin moves pyproject.toml to the sdist root but leaves LICENSE in the
+# crate directory, while PKG-INFO names it at the root; PyPI rejects such
+# an sdist.
+include = [{ path = "LICENSE", format = "sdist" }]

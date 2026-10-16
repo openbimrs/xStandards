@@ -1,0 +1,24 @@
+[package]
+name = "openbim-xrechnung-wasm"
+version = "0.1.0"
+description = "WebAssembly bindings for openbim-xrechnung (XRechnung), published to npm as @openbim/xrechnung."
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords = ["openbim", "xrechnung", "egovernment", "wasm"]
+categories = ["wasm"]
+# npm-only: distributed as `@openbim/xrechnung`.
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+openbim-xrechnung = { path = "../openbim-xrechnung", version = "0.1.0" }
+wasm-bindgen = "=0.2.128"
+
+[lints]
+workspace = true

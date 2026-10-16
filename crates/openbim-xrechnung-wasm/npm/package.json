@@ -1,0 +1,57 @@
+{
+  "name": "@openbim/xrechnung",
+  "description": "German CIUS of the EN 16931 electronic invoice, in JavaScript (WebAssembly build of openbim-xrechnung).",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openbimrs/xStandards.git",
+    "directory": "crates/openbim-xrechnung-wasm"
+  },
+  "type": "commonjs",
+  "main": "openbim_xrechnung_wasm.js",
+  "types": "openbim_xrechnung_wasm.d.ts",
+  "exports": {
+    ".": {
+      "node": {
+        "types": "./openbim_xrechnung_wasm.d.ts",
+        "default": "./openbim_xrechnung_wasm.js"
+      },
+      "default": {
+        "types": "./bundler/openbim_xrechnung_wasm.d.ts",
+        "default": "./bundler/openbim_xrechnung_wasm.js"
+      }
+    },
+    "./bundler": {
+      "types": "./bundler/openbim_xrechnung_wasm.d.ts",
+      "default": "./bundler/openbim_xrechnung_wasm.js"
+    },
+    "./web": {
+      "types": "./web/openbim_xrechnung_wasm.d.ts",
+      "default": "./web/openbim_xrechnung_wasm.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "openbim_xrechnung_wasm.js",
+    "openbim_xrechnung_wasm.d.ts",
+    "openbim_xrechnung_wasm_bg.wasm",
+    "openbim_xrechnung_wasm_bg.wasm.d.ts",
+    "bundler/",
+    "web/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "xrechnung",
+    "egovernment",
+    "openbim",
+    "bim",
+    "wasm",
+    "einvoice",
+    "en16931"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "name": "@openbim/xbreitband",
+  "description": "XBau specialist module for permits in broadband rollout and civil works (XBau-Tiefbau), in JavaScript (WebAssembly build of openbim-xbreitband).",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openbimrs/xStandards.git",
+    "directory": "crates/openbim-xbreitband-wasm"
+  },
+  "type": "commonjs",
+  "main": "openbim_xbreitband_wasm.js",
+  "types": "openbim_xbreitband_wasm.d.ts",
+  "exports": {
+    ".": {
+      "node": {
+        "types": "./openbim_xbreitband_wasm.d.ts",
+        "default": "./openbim_xbreitband_wasm.js"
+      },
+      "default": {
+        "types": "./bundler/openbim_xbreitband_wasm.d.ts",
+        "default": "./bundler/openbim_xbreitband_wasm.js"
+      }
+    },
+    "./bundler": {
+      "types": "./bundler/openbim_xbreitband_wasm.d.ts",
+      "default": "./bundler/openbim_xbreitband_wasm.js"
+    },
+    "./web": {
+      "types": "./web/openbim_xbreitband_wasm.d.ts",
+      "default": "./web/openbim_xbreitband_wasm.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "openbim_xbreitband_wasm.js",
+    "openbim_xbreitband_wasm.d.ts",
+    "openbim_xbreitband_wasm_bg.wasm",
+    "openbim_xbreitband_wasm_bg.wasm.d.ts",
+    "bundler/",
+    "web/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "xbreitband",
+    "egovernment",
+    "openbim",
+    "bim",
+    "wasm",
+    "broadband",
+    "permit"
+  ]
+}

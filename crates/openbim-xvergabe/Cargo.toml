@@ -1,0 +1,20 @@
+[package]
+name = "openbim-xvergabe"
+version = "0.1.0"
+description = "XVergabe for Rust: interface standard between e-procurement platforms and bidder tools"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation = "https://docs.rs/openbim-xvergabe"
+readme = "README.md"
+keywords = ["openbim", "xvergabe", "egovernment", "procurement", "tender"]
+categories = ["data-structures", "parser-implementations"]
+include = ["src/**", "Cargo.toml", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[dependencies]
+
+[lints]
+workspace = true

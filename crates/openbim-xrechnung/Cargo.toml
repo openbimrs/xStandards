@@ -1,0 +1,20 @@
+[package]
+name = "openbim-xrechnung"
+version = "0.1.0"
+description = "XRechnung for Rust: german CIUS of the EN 16931 electronic invoice"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation = "https://docs.rs/openbim-xrechnung"
+readme = "README.md"
+keywords = ["openbim", "xrechnung", "egovernment", "einvoice", "en16931"]
+categories = ["data-structures", "parser-implementations"]
+include = ["src/**", "Cargo.toml", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[dependencies]
+
+[lints]
+workspace = true
