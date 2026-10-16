@@ -4,8 +4,10 @@
 Every standard in this repository is the same four crates under `crates/`:
 
     openbim-<slug>        the implementation (crates.io)
-    <slug>                short-name alias, a pure re-export (crates.io);
-                          skipped with --no-alias when crates.io has the name
+    <slug>                short-name alias, a pure re-export (crates.io), with
+                          the same alias for npm (<slug>/npm) and PyPI
+                          (<slug>/python); skipped with --no-alias when the
+                          name is taken
     openbim-<slug>-wasm   JavaScript binding, npm `@openbim/<slug>`
     openbim-<slug>-py     Python binding, PyPI `openbim-<slug>`
 
@@ -201,6 +203,89 @@ MIT
 """)
     write(d / "CHANGELOG.md", changelog(crate))
     write(d / "LICENSE", (ROOT / "LICENSE").read_text(encoding="utf-8"))
+    alias_bindings(s)
+
+
+def alias_bindings(s: argparse.Namespace) -> None:
+    """The short name on npm and PyPI: pure re-exports of the bindings.
+
+    Released by their own tags, `<x>-npm-v<version>` (npm `<x>`) and
+    `<x>-py-v<version>` (PyPI `<x>`). Each pins its binding exactly, for the
+    reason the crate alias does, and carries the binding's version.
+    """
+    canonical = f"openbim-{s.slug}"
+    module = canonical.replace("-", "_")
+    d = ROOT / "crates" / s.slug
+    package = {
+        "name": s.slug,
+        "description": f"{s.name} alias: re-exports @openbim/{s.slug}.",
+        "version": VERSION,
+        "license": "MIT",
+        "repository": {
+            "type": "git",
+            "url": "git+https://github.com/openbimrs/xStandards.git",
+            "directory": f"crates/{s.slug}/npm",
+        },
+        "type": "commonjs",
+        "main": "index.js",
+        "types": "index.d.ts",
+        "files": ["index.js", "index.d.ts", "README.md", "LICENSE"],
+        "dependencies": {f"@openbim/{s.slug}": VERSION},
+        "engines": {"node": ">=18"},
+        "keywords": [s.slug, "egovernment", "openbim", "bim", *s.keyword],
+    }
+    write(d / "npm" / "package.json", json.dumps(package, indent=2, ensure_ascii=False) + "\n")
+    write(d / "npm" / "index.js", f"""// Alias: defines nothing of its own (see README.md).
+module.exports = require("@openbim/{s.slug}");
+""")
+    write(d / "npm" / "index.d.ts", f'export * from "@openbim/{s.slug}";\n')
+    readme = f"""# {s.slug}
+
+Short-name package for {s.name}: a **pure re-export** of
+[`@openbim/{s.slug}`](https://www.npmjs.com/package/@openbim/{s.slug}),
+pinned to its exact version, so both names expose one API.
+
+```js
+const {{ standardName }} = require("{s.slug}");
+```
+
+## License
+
+MIT
+"""
+    write(d / "npm" / "README.md", readme)
+    write(d / "npm" / "LICENSE", (ROOT / "LICENSE").read_text(encoding="utf-8"))
+
+    write(d / "python" / "pyproject.toml", f"""[build-system]
+requires = ["flit_core>=3.9,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "{s.slug}"
+version = "{VERSION}"
+description = "{s.name} alias: re-exports openbim-{s.slug}."
+readme = "README.md"
+license = {{ text = "MIT" }}
+requires-python = ">=3.9"
+# Exact pin: the alias and the canonical package expose one API.
+dependencies = ["openbim-{s.slug}=={VERSION}"]
+keywords = [{", ".join(toml_str(k) for k in [s.slug, "egovernment", "openbim", "bim", *s.keyword])}]
+classifiers = ["License :: OSI Approved :: MIT License"]
+
+[project.urls]
+Repository = "{REPO}"
+""")
+    write(d / "python" / s.slug / "__init__.py", f'''"""Alias for ``{module}``: defines nothing of its own."""
+
+from {module} import *  # noqa: F401,F403
+from {module} import __version__  # noqa: F401
+''')
+    write(d / "python" / "README.md", readme.replace(
+        f"[`@openbim/{s.slug}`](https://www.npmjs.com/package/@openbim/{s.slug})",
+        f"[`openbim-{s.slug}`](https://pypi.org/project/openbim-{s.slug}/)").replace(
+        f'```js\nconst {{ standardName }} = require("{s.slug}");\n```',
+        f"```python\nimport {s.slug}\nprint({s.slug}.STANDARD_NAME)\n```"))
+    write(d / "python" / "LICENSE", (ROOT / "LICENSE").read_text(encoding="utf-8"))
 
 
 def wasm(s: argparse.Namespace) -> None:

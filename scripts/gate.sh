@@ -143,7 +143,12 @@ section_bindings() {
     $(members | awk '/-wasm /{print "-p", $1}') -- -D warnings
   while read -r name _; do
     case "$name" in
-      openbim-*-wasm) step scripts/build-npm-package.sh "$name" "$target_dir/npm/$name" ;;
+      openbim-*-wasm)
+        step scripts/build-npm-package.sh "$name" "$target_dir/npm/$name"
+        stem="${name#openbim-}"; stem="${stem%-wasm}"
+        if [[ -f "crates/$stem/npm/package.json" ]]; then
+          step scripts/build-npm-alias.sh "$stem" "$target_dir/npm/$stem" "$target_dir/npm/$name"
+        fi ;;
       openbim-*-py) step scripts/check-python.sh "$name" ;;
     esac
   done < <(members)

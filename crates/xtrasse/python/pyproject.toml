@@ -1,0 +1,18 @@
+[build-system]
+requires = ["flit_core>=3.9,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "xtrasse"
+version = "0.1.0"
+description = "XTrasse alias: re-exports openbim-xtrasse."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+# Exact pin: the alias and the canonical package expose one API.
+dependencies = ["openbim-xtrasse==0.1.0"]
+keywords = ["xtrasse", "egovernment", "openbim", "bim", "infrastructure", "gml"]
+classifiers = ["License :: OSI Approved :: MIT License"]
+
+[project.urls]
+Repository = "https://github.com/openbimrs/xStandards"

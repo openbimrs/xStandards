@@ -5,6 +5,10 @@
 #   <crate>-v<version>  ->  crates.io  for openbim-<x> and the alias <x>
 #                           npm        for openbim-<x>-wasm  (@openbim/<x>)
 #                           PyPI       for openbim-<x>-py    (openbim-<x>)
+#   <x>-npm-v<version>  ->  npm        short-name alias <x> of @openbim/<x>
+#   <x>-py-v<version>   ->  PyPI       short-name alias <x> of openbim-<x>
+#
+# An alias pins its canonical package exactly; release that one first.
 #
 # Every registry is published by trusted publishing (OIDC). Each publish job
 # runs in the environment named after its registry (`crates.io`,
@@ -61,6 +65,7 @@ jobs:
       pypi: ${{ steps.plan.outputs.pypi }}
       dir: ${{ steps.plan.outputs.dir }}
       package: ${{ steps.plan.outputs.package }}
+      kind: ${{ steps.plan.outputs.kind }}
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -197,7 +202,15 @@ jobs:
       - name: Build and test the package
         env:
           CRATE: ${{ needs.plan.outputs.crate }}
-        run: scripts/build-npm-package.sh "$CRATE" "$RUNNER_TEMP/pkg"
+          KIND: ${{ needs.plan.outputs.kind }}
+          ALIAS: ${{ needs.plan.outputs.package }}
+        run: |
+          if [ "$KIND" = alias ]; then
+            # Tested against the pinned @openbim/<x> as published.
+            scripts/build-npm-alias.sh "$ALIAS" "$RUNNER_TEMP/pkg"
+          else
+            scripts/build-npm-package.sh "$CRATE" "$RUNNER_TEMP/pkg"
+          fi
       - name: Rehearse publish
         # npm 11 refuses even a dry run over a live version, so rehearsing
         # an already-published tag packs the tarball instead.
@@ -233,7 +246,7 @@ jobs:
   wheels:
     name: Wheel (${{ matrix.name }})
     needs: plan
-    if: needs.plan.outputs.pypi == 'true'
+    if: needs.plan.outputs.pypi == 'true' && needs.plan.outputs.kind == 'binding'
     strategy:
       fail-fast: true
       matrix:
@@ -276,7 +289,7 @@ jobs:
   sdist:
     name: Source distribution
     needs: plan
-    if: needs.plan.outputs.pypi == 'true'
+    if: needs.plan.outputs.pypi == 'true' && needs.plan.outputs.kind == 'binding'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -294,10 +307,48 @@ jobs:
           path: dist/*.tar.gz
           if-no-files-found: error
 
+  alias-dist:
+    name: Alias distributions
+    needs: plan
+    if: needs.plan.outputs.pypi == 'true' && needs.plan.outputs.kind == 'alias'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Build wheel and sdist
+        env:
+          DIR: ${{ needs.plan.outputs.dir }}
+        run: |
+          python -m pip install --quiet "build==1.2.2.post1"
+          python -m build --outdir dist "$DIR"
+      - name: Test against the published canonical package
+        # The alias pins openbim-<x> exactly, which must already be on PyPI.
+        env:
+          ALIAS: ${{ needs.plan.outputs.package }}
+        run: |
+          python -m pip install --quiet dist/*.whl
+          cd "$RUNNER_TEMP"
+          python -c "import $ALIAS, openbim_$ALIAS; assert $ALIAS.STANDARD_NAME == openbim_$ALIAS.STANDARD_NAME; print($ALIAS.STANDARD_NAME, $ALIAS.__version__)"
+      - name: Upload distributions
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: alias-dist
+          path: dist/*
+          if-no-files-found: error
+
   pypi:
     name: Publish to PyPI
-    needs: [plan, wheels, sdist]
-    if: github.event_name == 'push'
+    needs: [plan, wheels, sdist, alias-dist]
+    # wheels/sdist run for a binding, alias-dist for an alias; the others
+    # are skipped, which must not skip this job.
+    if: >-
+      !cancelled() && github.event_name == 'push'
+      && needs.plan.outputs.pypi == 'true'
+      && !contains(needs.*.result, 'failure')
     runs-on: ubuntu-latest
     environment:
       name: pypi.org
