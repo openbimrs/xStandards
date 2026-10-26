@@ -1,4 +1,4 @@
-//! Python binding of [`openbim-xrechnung`], published to PyPI as
+//! Python binding of [`openbim_xrechnung`], published to PyPI as
 //! `openbim-xrechnung` and imported as `openbim_xrechnung`. Build and test it with
 //! `scripts/check-python.sh openbim-xrechnung-py`.
 

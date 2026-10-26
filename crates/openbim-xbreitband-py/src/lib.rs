@@ -1,4 +1,4 @@
-//! Python binding of [`openbim-xbreitband`], published to PyPI as
+//! Python binding of [`openbim_xbreitband`], published to PyPI as
 //! `openbim-xbreitband` and imported as `openbim_xbreitband`. Build and test it with
 //! `scripts/check-python.sh openbim-xbreitband-py`.
 

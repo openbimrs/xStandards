@@ -1,4 +1,4 @@
-//! Python binding of [`openbim-xvergabe`], published to PyPI as
+//! Python binding of [`openbim_xvergabe`], published to PyPI as
 //! `openbim-xvergabe` and imported as `openbim_xvergabe`. Build and test it with
 //! `scripts/check-python.sh openbim-xvergabe-py`.
 

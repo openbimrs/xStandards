@@ -1,4 +1,4 @@
-//! Python binding of [`openbim-xtrasse`], published to PyPI as
+//! Python binding of [`openbim_xtrasse`], published to PyPI as
 //! `openbim-xtrasse` and imported as `openbim_xtrasse`. Build and test it with
 //! `scripts/check-python.sh openbim-xtrasse-py`.
 

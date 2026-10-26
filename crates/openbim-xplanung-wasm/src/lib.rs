@@ -1,4 +1,4 @@
-//! JavaScript binding of [`openbim-xplanung`], published to npm as
+//! JavaScript binding of [`openbim_xplanung`], published to npm as
 //! `@openbim/xplanung`. Build it with `scripts/build-npm-package.sh openbim-xplanung-wasm`.
 
 use wasm_bindgen::prelude::*;

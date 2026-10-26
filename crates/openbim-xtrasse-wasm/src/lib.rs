@@ -1,4 +1,4 @@
-//! JavaScript binding of [`openbim-xtrasse`], published to npm as
+//! JavaScript binding of [`openbim_xtrasse`], published to npm as
 //! `@openbim/xtrasse`. Build it with `scripts/build-npm-package.sh openbim-xtrasse-wasm`.
 
 use wasm_bindgen::prelude::*;

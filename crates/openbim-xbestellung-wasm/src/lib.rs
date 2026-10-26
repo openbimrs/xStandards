@@ -1,4 +1,4 @@
-//! JavaScript binding of [`openbim-xbestellung`], published to npm as
+//! JavaScript binding of [`openbim_xbestellung`], published to npm as
 //! `@openbim/xbestellung`. Build it with `scripts/build-npm-package.sh openbim-xbestellung-wasm`.
 
 use wasm_bindgen::prelude::*;

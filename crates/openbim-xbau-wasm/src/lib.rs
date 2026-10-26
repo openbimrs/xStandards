@@ -1,4 +1,4 @@
-//! JavaScript binding of [`openbim-xbau`], published to npm as
+//! JavaScript binding of [`openbim_xbau`], published to npm as
 //! `@openbim/xbau`. Build it with `scripts/build-npm-package.sh openbim-xbau-wasm`.
 
 use wasm_bindgen::prelude::*;

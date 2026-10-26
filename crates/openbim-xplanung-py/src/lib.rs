@@ -1,4 +1,4 @@
-//! Python binding of [`openbim-xplanung`], published to PyPI as
+//! Python binding of [`openbim_xplanung`], published to PyPI as
 //! `openbim-xplanung` and imported as `openbim_xplanung`. Build and test it with
 //! `scripts/check-python.sh openbim-xplanung-py`.
 

@@ -4,6 +4,10 @@ Repository-level changes. Each crate keeps its own `CHANGELOG.md`.
 
 ## [Unreleased]
 
+### Changed
+
+- Raise MSRV to Rust 1.99.
+
 ### Added
 
 - Workspace scaffold for XPlanung, XBau, XBreitband, XTrasse, XRechnung,

@@ -8,7 +8,7 @@ members = ["crates/*"]
 # scripts/release-crate.py); everything else is shared.
 [workspace.package]
 edition = "2024"
-rust-version = "1.88"
+rust-version = "1.99"
 license = "MIT"
 authors = ["point-grey"]
 repository = "https://github.com/openbimrs/xStandards"

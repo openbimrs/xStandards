@@ -1,4 +1,4 @@
-//! JavaScript binding of [`openbim-xvergabe`], published to npm as
+//! JavaScript binding of [`openbim_xvergabe`], published to npm as
 //! `@openbim/xvergabe`. Build it with `scripts/build-npm-package.sh openbim-xvergabe-wasm`.
 
 use wasm_bindgen::prelude::*;

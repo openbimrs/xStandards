@@ -1,4 +1,4 @@
-//! Python binding of [`openbim-xbestellung`], published to PyPI as
+//! Python binding of [`openbim_xbestellung`], published to PyPI as
 //! `openbim-xbestellung` and imported as `openbim_xbestellung`. Build and test it with
 //! `scripts/check-python.sh openbim-xbestellung-py`.
 

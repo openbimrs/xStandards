@@ -1,4 +1,4 @@
-//! JavaScript binding of [`openbim-xrechnung`], published to npm as
+//! JavaScript binding of [`openbim_xrechnung`], published to npm as
 //! `@openbim/xrechnung`. Build it with `scripts/build-npm-package.sh openbim-xrechnung-wasm`.
 
 use wasm_bindgen::prelude::*;

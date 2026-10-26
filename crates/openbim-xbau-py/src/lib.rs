@@ -1,4 +1,4 @@
-//! Python binding of [`openbim-xbau`], published to PyPI as
+//! Python binding of [`openbim_xbau`], published to PyPI as
 //! `openbim-xbau` and imported as `openbim_xbau`. Build and test it with
 //! `scripts/check-python.sh openbim-xbau-py`.
 

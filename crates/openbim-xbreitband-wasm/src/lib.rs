@@ -1,4 +1,4 @@
-//! JavaScript binding of [`openbim-xbreitband`], published to npm as
+//! JavaScript binding of [`openbim_xbreitband`], published to npm as
 //! `@openbim/xbreitband`. Build it with `scripts/build-npm-package.sh openbim-xbreitband-wasm`.
 
 use wasm_bindgen::prelude::*;

@@ -88,7 +88,7 @@ canonical_live() {
 
 package_crates() {
   # An alias resolves its canonical crate from crates.io when packaged
-  # (cargo 1.88 has no workspace-local packaging), so it packages only once
+  # (cargo has no workspace-local packaging for aliases), so it packages only once
   # the exact canonical version it pins is live; until then the gate says
   # so. Release order is the same: canonical crate first, then the alias.
   local publishable=() name publish
